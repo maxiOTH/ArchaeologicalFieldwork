@@ -24,5 +24,5 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             }
             Toast.makeText(this,status,Toast.LENGTH_SHORT).show()
         }
-    }@
+    }
 }
