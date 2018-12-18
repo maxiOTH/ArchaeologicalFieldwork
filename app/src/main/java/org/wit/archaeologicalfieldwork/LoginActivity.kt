@@ -8,16 +8,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
-class MainActivity : AppCompatActivity(), AnkoLogger {
+class LoginActivity : AppCompatActivity(), AnkoLogger {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        info("MainActivity started...")
+        info("LoginActivity started...")
 
         login_btn.setOnClickListener{
-            var status = if(usereamil_et.text.toString().equals("maximilian-bergbauer@web.de")
+            var status = if(usereamil_et.text.toString().equals("maximilian")
             && password_et.text.toString().equals("1234")){
                 val nextPageIntent = Intent(this, ListOfSitesActivity::class.java)
                 startActivity(nextPageIntent)
