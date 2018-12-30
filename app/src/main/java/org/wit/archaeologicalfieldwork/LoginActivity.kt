@@ -4,7 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -13,7 +13,7 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
         info("LoginActivity started...")
 
         login_btn.setOnClickListener{
@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
 
 
             }else{
-                "LogIn Failed"
+                "Login Failed"
             }
             Toast.makeText(this,status,Toast.LENGTH_SHORT).show()
 

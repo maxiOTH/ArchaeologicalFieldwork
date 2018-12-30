@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".ListOfSitesActivity">
         </activity>
+
     </application>
 
 </manifest>

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">ArchaeologicalFieldwork</string>
     <string name="settings">Settings</string>
+    <string name = "title_activity_child">ChildActivity</string>
+    <string name="button_createSite">Create Site</string>
+    <string name="hint_SiteName">Site Name</string>
 </resources>
