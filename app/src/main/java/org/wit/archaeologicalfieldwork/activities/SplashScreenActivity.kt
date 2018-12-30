@@ -1,9 +1,10 @@
-package org.wit.archaeologicalfieldwork
+package org.wit.archaeologicalfieldwork.activities
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import org.wit.archaeologicalfieldwork.R
 
 class SplashScreenActivity : AppCompatActivity(){
 

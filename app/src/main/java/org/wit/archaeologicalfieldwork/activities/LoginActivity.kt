@@ -1,4 +1,4 @@
-package org.wit.archaeologicalfieldwork
+package org.wit.archaeologicalfieldwork.activities
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -7,6 +7,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.wit.archaeologicalfieldwork.R
 
 class LoginActivity : AppCompatActivity(), AnkoLogger {
 
@@ -19,7 +20,7 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
         login_btn.setOnClickListener{
             var status = if(usereamil_et.text.toString().equals("maximilian")
             && password_et.text.toString().equals("1234")){
-                val nextPageIntent = Intent(this, ListOfSitesActivity::class.java)
+                val nextPageIntent = Intent(this, SiteActivity::class.java)
                 startActivity(nextPageIntent)
                 "Logged in successfully"
 
