@@ -9,6 +9,7 @@ import org.jetbrains.anko.toast
 
 class ListOfSitesActivity : AppCompatActivity() {
 
+    val sites = ArrayList<SiteModel>()
     var site = SiteModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
