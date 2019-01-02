@@ -9,7 +9,10 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.wit.archaeologicalfieldwork.R
 
+
+
 class LoginActivity : AppCompatActivity(), AnkoLogger {
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
