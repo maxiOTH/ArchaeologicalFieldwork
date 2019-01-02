@@ -1,3 +1,8 @@
 package org.wit.archaeologicalfieldwork.models
 
-data class SiteModel (var name:String="")
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+
+@Parcelize
+data class SiteModel (var id: Long = 0,var name:String="", var description:String = ""):Parcelable

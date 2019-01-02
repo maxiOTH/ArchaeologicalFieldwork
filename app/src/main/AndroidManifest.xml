@@ -22,10 +22,9 @@
         <activity
             android:name=".activities.LoginActivity">
         </activity>
-        <activity
-            android:name=".activities.SiteActivity">
-        </activity>
         <activity android:name=".activities.SiteListActivity">
+        </activity>
+        <activity android:name=".activities.SiteActivity">
         </activity>
     </application>
 </manifest>

@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
         login_btn.setOnClickListener{
             var status = if(usereamil_et.text.toString().equals("maximilian")
             && password_et.text.toString().equals("1234")){
-                val nextPageIntent = Intent(this, SiteActivity::class.java)
+                val nextPageIntent = Intent(this, SiteListActivity::class.java)
                 startActivity(nextPageIntent)
                 "Logged in successfully"
 

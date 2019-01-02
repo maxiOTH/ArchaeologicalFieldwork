@@ -5,4 +5,5 @@
     <string name="button_createSite">Create Site</string>
     <string name="menu_addSite">Add</string>
     <string name="hint_SiteName">Site Name</string>
+    <string name="menu_cancelSite">Cancel</string>
 </resources>
