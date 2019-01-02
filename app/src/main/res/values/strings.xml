@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">ArchaeologicalFieldwork</string>
     <string name="settings">Settings</string>
-    <string name = "title_activity_child">ChildActivity</string>
-    <string name="button_createSite">Create Site</string>
+    <string name="save_Site">Save Site</string>
     <string name="menu_addSite">Add</string>
     <string name="hint_SiteName">Site Name</string>
+    <string name="hint_siteDescription">Site Description</string>
     <string name="menu_cancelSite">Cancel</string>
+    <string name="enter_site_name"> Please enter a Site Name </string>
 </resources>

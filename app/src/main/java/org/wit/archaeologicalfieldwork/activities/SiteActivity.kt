@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_site.*
-import kotlinx.android.synthetic.main.card_site.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
@@ -22,7 +21,7 @@ class SiteActivity :AppCompatActivity(),AnkoLogger{
         setContentView(R.layout.activity_site)
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
-        info("Placemark Activity started..")
+        info("Site Activity started..")
 
         app = application as MainApp
 
@@ -30,25 +29,26 @@ class SiteActivity :AppCompatActivity(),AnkoLogger{
             site = intent.extras.getParcelable<SiteModel>("site_edit")
             siteName.setText(site.name)
             description.setText(site.description)
+            btnAdd.setText(R.string.save_Site)
         }
 
         btnAdd.setOnClickListener() {
             site.name = siteName.text.toString()
+            site.description = description.text.toString()
             if(site.name.isNotEmpty()){
                 app.sites.create(site.copy())
                 info ("add Button Pressed: $siteName")
-
                 setResult(AppCompatActivity.RESULT_OK)
                 finish()
             }else{
-                toast ("Please Enter a title")
+                toast(R.string.enter_site_name)
             }
         }
 
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main,menu)
+        menuInflater.inflate(R.menu.menu_site,menu)
         return super.onCreateOptionsMenu(menu)
     }
 

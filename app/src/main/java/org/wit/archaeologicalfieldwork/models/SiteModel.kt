@@ -5,4 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 
 @Parcelize
-data class SiteModel (var id: Long = 0,var name:String="", var description:String = ""):Parcelable
+data class SiteModel (var id: Long = 0,
+                      var name:String="",
+                      var description:String = ""):Parcelable

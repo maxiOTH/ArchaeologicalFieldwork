@@ -26,7 +26,7 @@ class SiteMemStore : SiteStore , AnkoLogger{
 
     override fun update(site: SiteModel) {
         var foundSite:SiteModel?=sites.find { p->p.id == site.id }
-        if(foundSite!=null){
+        if (foundSite!=null){
             foundSite.name = site.name
             foundSite.description = site.description
             logAll()
