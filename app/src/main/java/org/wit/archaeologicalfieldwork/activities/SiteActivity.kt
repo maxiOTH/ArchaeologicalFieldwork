@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import com.google.firebase.auth.FirebaseAuthException
 import kotlinx.android.synthetic.main.activity_site.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -15,7 +14,7 @@ import org.wit.archaeologicalfieldwork.models.SiteModel
 
 class SiteActivity :AppCompatActivity(),AnkoLogger{
 
-    
+
     var site = SiteModel()
     lateinit var app : MainApp
 

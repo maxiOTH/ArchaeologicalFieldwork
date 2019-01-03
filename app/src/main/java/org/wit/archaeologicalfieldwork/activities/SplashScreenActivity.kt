@@ -17,7 +17,7 @@ class SplashScreenActivity : AppCompatActivity(){
 
         Handler().postDelayed(object:Runnable{
              override fun run(){
-                val home = Intent(this@SplashScreenActivity, LoginActivity::class.java)
+                val home = Intent(this@SplashScreenActivity, RegisterActivity::class.java)
                  startActivity(home)
                  finish()
             }
