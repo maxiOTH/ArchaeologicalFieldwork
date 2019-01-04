@@ -1,27 +1,28 @@
 package org.wit.archaeologicalfieldwork.activities
 
 import android.os.Bundle
-import android.os.PersistableBundle
+
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_login.*
 import org.wit.archaeologicalfieldwork.R
 
-class LoginActivity: AppCompatActivity(){
+class LoginActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_login)
+
 
         login_button_login.setOnClickListener{
             val email = email_edittext_login.text.toString()
             val password = password_edittext_login.text.toString()
 
-            Log.d("Login", "Attempt login with email/pw: $email/***")
+            Log.d("Login","Attempt login with email/pw $email/***")
+
         }
 
-        back_to_register_textview.setOnClickListener{
+        back_to_register_text_view_login.setOnClickListener{
             finish()
         }
 
