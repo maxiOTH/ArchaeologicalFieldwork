@@ -1,10 +1,12 @@
 package org.wit.archaeologicalfieldwork.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 
 import android.view.*
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_site_list.*
 import org.jetbrains.anko.intentFor
 
@@ -21,8 +23,8 @@ class SiteListActivity:AppCompatActivity(),SiteListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site_list)
         app = application as MainApp
-        toolbarMain.title = title
-        setSupportActionBar(toolbarMain)
+        activity_site_list_toolbar.title = title
+        setSupportActionBar(findViewById(R.id.activity_site_list_toolbar))
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
@@ -36,15 +38,39 @@ class SiteListActivity:AppCompatActivity(),SiteListener{
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
-            R.id.item_add -> startActivityForResult<SiteActivity>(0)
+    override fun onOptionsItemSelected(item: MenuItem)= when (item.itemId) {
+       // when(item?.itemId){
+        //    R.id.item_add -> startActivityForResult<SiteActivity>(0)
+       // }
+        //return super.onOptionsItemSelected(item)
+        R.id.item_add->{
+            startActivityForResult<SiteActivity>(0)
+            true
         }
-        return super.onOptionsItemSelected(item)
+
+        R.id.action_logout ->{
+            Toast.makeText(this,"Successfull log out",Toast.LENGTH_SHORT).show()
+            startActivityForResult<LoginActivity>(0)
+            true
+        }
+
+        R.id.action_settings -> {
+            true
+        }
+
+        else->{
+            super.onOptionsItemSelected(item)
+        }
+
     }
 
     override fun onSiteClick(site:SiteModel){
         startActivityForResult(intentFor<SiteActivity>().putExtra("site_edit",site), AppCompatActivity.RESULT_OK)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        recyclerView.adapter?.notifyDataSetChanged()
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
 }

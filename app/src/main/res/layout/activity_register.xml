@@ -16,7 +16,7 @@
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbarAdd"
+                android:id="@+id/activity_site_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:titleTextColor="@color/colorPrimary" android:background="@android:color/holo_green_dark"/>

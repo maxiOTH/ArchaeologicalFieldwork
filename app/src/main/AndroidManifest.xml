@@ -14,18 +14,25 @@
             android:name=".activities.SplashScreenActivity"
             android:noHistory="true"
             android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
         <activity android:name=".activities.RegisterActivity">
         </activity>
         <activity android:name=".activities.LoginActivity">
         </activity>
         <activity android:name=".activities.SiteListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
-        <activity android:name=".activities.SiteActivity">
+        <activity
+                android:name=".activities.SiteActivity"
+                android:parentActivityName=".activities.SiteListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.SiteListActivity">
+            </meta-data>
         </activity>
     </application>
 </manifest>
