@@ -28,7 +28,7 @@ class SiteListActivity:AppCompatActivity(),SiteListener{
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = SiteAdapter(app.sites.findAll(),this)
+        loadSites()
 
 
     }
@@ -65,12 +65,21 @@ class SiteListActivity:AppCompatActivity(),SiteListener{
     }
 
     override fun onSiteClick(site:SiteModel){
-        startActivityForResult(intentFor<SiteActivity>().putExtra("site_edit",site), AppCompatActivity.RESULT_OK)
+        startActivityForResult(intentFor<SiteActivity>().putExtra("site_edit",site), 0)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        recyclerView.adapter?.notifyDataSetChanged()
+        loadSites()
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun loadSites(){
+        showSites(app.sites.findAll())
+    }
+
+    fun showSites(sites:List<SiteModel>){
+        recyclerView.adapter = SiteAdapter(sites,this)
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 
 }

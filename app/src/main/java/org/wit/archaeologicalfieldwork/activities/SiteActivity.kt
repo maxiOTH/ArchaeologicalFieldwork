@@ -6,23 +6,29 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_site.*
+import kotlinx.android.synthetic.main.notification_template_media.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 import org.wit.archaeologicalfieldwork.R
 import org.wit.archaeologicalfieldwork.helpers.readImage
 import org.wit.archaeologicalfieldwork.helpers.readImageFromPath
 import org.wit.archaeologicalfieldwork.helpers.showImagePicker
 import org.wit.archaeologicalfieldwork.main.MainApp
+import org.wit.archaeologicalfieldwork.models.Location
 import org.wit.archaeologicalfieldwork.models.SiteModel
 
 class SiteActivity :AppCompatActivity(),AnkoLogger{
 
-    var edit = true
+
     var site = SiteModel()
     lateinit var app : MainApp
     val IMAGE_REQUEST = 1
+    val LOCATION_REQUEST = 2
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,14 +39,16 @@ class SiteActivity :AppCompatActivity(),AnkoLogger{
         info("Site Activity started..")
 
         app = application as MainApp
-
+        var edit = false
         if(intent.hasExtra("site_edit")){
             edit= true
             site = intent.extras.getParcelable<SiteModel>("site_edit")
             siteName.setText(site.name)
             description.setText(site.description)
             siteImage.setImageBitmap(readImageFromPath(this,site.image))
-            
+            if(site.image != null){
+                addImage.setText(R.string.change_site_image)
+            }
             btnAdd.setText(R.string.save_Site)
 
         }
@@ -64,6 +72,16 @@ class SiteActivity :AppCompatActivity(),AnkoLogger{
 
         addImage.setOnClickListener{
            showImagePicker(this,IMAGE_REQUEST)
+        }
+
+        siteLocation.setOnClickListener{
+            val location = Location(52.245696, -7.139102, 15f)
+            if(site.zoom != 0f){
+                location.lat = site.lat
+                location.lng = site.lng
+                location.zoom = site.zoom
+            }
+            startActivityForResult(intentFor<MapsActivity>().putExtra("location", location), LOCATION_REQUEST)
         }
     }
 
@@ -89,6 +107,16 @@ class SiteActivity :AppCompatActivity(),AnkoLogger{
                 if(data!=null){
                     site.image = data.getData().toString()
                     siteImage.setImageBitmap(readImage(this,resultCode,data))
+                    addImage.setText(R.string.change_site_image)
+                }
+            }
+            LOCATION_REQUEST -> {
+                if(data != null){
+                    val location = data.extras.getParcelable<Location>("location")
+                    site.lat = location.lat
+                    site.lng = location.lng
+                    site.zoom = location.zoom
+
                 }
             }
         }

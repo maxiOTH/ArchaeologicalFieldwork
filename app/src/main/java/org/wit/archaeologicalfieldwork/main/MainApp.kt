@@ -8,13 +8,13 @@ import org.wit.archaeologicalfieldwork.models.SiteMemStore
 
 class MainApp: Application(),AnkoLogger{
 
-    val sites = SiteMemStore()
+   lateinit var sites : SiteMemStore
 
 
     override fun onCreate() {
         super.onCreate()
+        sites = SiteMemStore()
         info ("Archaeologicalfieldwork started")
-
     }
 
 }
