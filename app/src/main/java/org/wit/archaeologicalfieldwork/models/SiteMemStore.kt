@@ -11,6 +11,9 @@ internal fun getId():Long{
 
 
 class SiteMemStore : SiteStore , AnkoLogger{
+    override fun delete(site: SiteModel) {
+        sites.remove(site)
+    }
 
     val sites = ArrayList<SiteModel>()
 
