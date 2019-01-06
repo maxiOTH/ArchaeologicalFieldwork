@@ -28,7 +28,7 @@ class SiteActivity :AppCompatActivity(),AnkoLogger{
     lateinit var app : MainApp
     val IMAGE_REQUEST = 1
     val LOCATION_REQUEST = 2
-
+    var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +37,9 @@ class SiteActivity :AppCompatActivity(),AnkoLogger{
         setSupportActionBar(findViewById(R.id.activity_site_toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         info("Site Activity started..")
-
+        edit = true
         app = application as MainApp
-        var edit = false
+
         if(intent.hasExtra("site_edit")){
             edit= true
             site = intent.extras.getParcelable<SiteModel>("site_edit")
@@ -87,12 +87,19 @@ class SiteActivity :AppCompatActivity(),AnkoLogger{
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_site,menu)
+        if(edit&&menu!=null){
+            menu.getItem(0).setVisible(true)
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
+            R.id.item_delete->{
+                app.sites.delete(site)
+                finish()
+            }
             R.id.item_cancel->{
                 finish()
             }
