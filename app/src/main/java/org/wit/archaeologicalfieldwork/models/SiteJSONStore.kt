@@ -20,6 +20,9 @@ fun generateRandomId():Long{
 }
 
 class SiteJSONStore:SiteStore,AnkoLogger{
+    override fun finById(id: Long): SiteModel? {
+        val foundSite: SiteModel? = sites.find { it.id == id }
+        return foundSite    }
 
 
     val context:Context

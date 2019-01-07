@@ -16,6 +16,11 @@
     <item android:id="@+id/action_settings"
           android:title="@string/action_settings"
           app:showAsAction="never"/>
+    <item
+            android:id="@+id/item_map"
+            android:icon="@android:drawable/ic_menu_mapmode"
+            android:title="@string/menu_addSite"
+            app:showAsAction="always"/>
 
 
 

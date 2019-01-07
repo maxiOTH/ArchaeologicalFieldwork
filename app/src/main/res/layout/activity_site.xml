@@ -26,86 +26,92 @@
                 app:titleTextColor="@color/colorPrimary" android:background="@android:color/holo_green_dark"/>
     </android.support.design.widget.AppBarLayout>
 
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/appBarLayout"
-            android:fillViewport="true">
-
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" android:background="@android:color/holo_green_light">
+                android:layout_height="600dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <android.support.design.widget.TextInputEditText
+            <EditText
                     android:id="@+id/siteName"
-                    android:layout_width="match_parent"
+                    android:layout_width="365dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="64dp"
+                    android:ems="10"
                     android:hint="@string/hint_SiteName"
                     android:inputType="text"
-                    android:maxLength="25"
-                    android:maxLines="1"
-                    android:padding="8dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp"/>
-            <android.support.design.widget.TextInputEditText
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.503"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            <EditText
                     android:id="@+id/description"
-                    android:layout_width="match_parent"
+                    android:layout_width="365dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:ems="10"
                     android:hint="@string/hint_siteDescription"
-                    android:inputType="text"
-                    android:maxLength="25"
-                    android:maxLines="1"
-                    android:padding="8dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp"/>
-
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/siteName" />
             <Button
                     android:id="@+id/addImage"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@android:color/holo_orange_dark"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp"
+                    android:layout_marginTop="8dp"
                     android:text="@string/button_addImage"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"/>
+                    app:layout_constraintStart_toStartOf="@+id/btnAdd"
+                    app:layout_constraintTop_toBottomOf="@+id/btnAdd" />
             <ImageView
                     android:id="@+id/siteImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/ic_launcher"/>
-
-            <Button
-                    android:id="@+id/btnAdd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@android:color/holo_orange_dark"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp"
-                    android:stateListAnimator="@null"
-                    android:text="@string/save_Site"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"/>
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.555"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/siteLocation"
+                    app:layout_constraintVertical_bias="0.173"
+                    app:srcCompat="@drawable/ic_launcher_background" />
             <Button
                     android:id="@+id/siteLocation"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@android:color/holo_orange_dark"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp"
-                    android:stateListAnimator="@null"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:text="@string/button_location"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"/>
+                    app:layout_constraintEnd_toEndOf="@+id/btnAdd"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/addImage"
+                    app:layout_constraintTop_toBottomOf="@+id/btnAdd" />
+            <Button
+                    android:id="@+id/btnAdd"
+                    android:layout_width="365dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/save_Site"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/description" />
 
-        </LinearLayout>
-    </ScrollView>
+        </android.support.constraint.ConstraintLayout>
+
+
+
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -43,4 +43,9 @@ class SiteMemStore : SiteStore , AnkoLogger{
     fun logAll(){
         sites.forEach{info("${it}")}
     }
+
+    override fun finById(id: Long): SiteModel? {
+        val foundSite:SiteModel?=sites.find{it.id == id}
+        return foundSite
+    }
 }

@@ -9,6 +9,7 @@ import android.view.*
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_site_list.*
 import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.startActivity
 
 import org.jetbrains.anko.startActivityForResult
 import org.wit.archaeologicalfieldwork.R
@@ -44,7 +45,12 @@ class SiteListActivity:AppCompatActivity(),SiteListener{
        // }
         //return super.onOptionsItemSelected(item)
         R.id.item_add->{
-            startActivityForResult<SiteActivity>(0)
+            startActivityForResult<SiteActivity>(200)
+            true
+        }
+
+        R.id.item_map ->{
+            startActivity<SiteMapsActivity>()
             true
         }
 
