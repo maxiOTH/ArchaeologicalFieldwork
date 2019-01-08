@@ -26,7 +26,7 @@
         </activity>
         <activity android:name=".activities.LoginActivity">
         </activity>
-        <activity android:name=".activities.SiteListActivity">
+        <activity android:name=".views.sitelist.SiteListView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -34,12 +34,13 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".activities.SiteActivity"
-                android:parentActivityName=".activities.SiteListActivity">
+                android:name=".views.site.SiteView"
+                android:parentActivityName=".views.sitelist.SiteListView">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".activities.SiteListActivity">
+                    android:value=".views.sitelist.SiteListView">
             </meta-data>
+
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -54,11 +55,11 @@
                 android:value="@string/google_maps_key"/>
 
         <activity
-                android:name=".activities.MapsActivity"
+                android:name=".views.editlocation.EditLocationView"
                 android:label="@string/title_activity_maps">
         </activity>
         <activity
-                android:name=".activities.SiteMapsActivity"
+                android:name=".views.map.SiteMapView"
                 android:label="@string/title_activity_site_maps"
                 android:theme="@style/AppTheme">
         </activity>

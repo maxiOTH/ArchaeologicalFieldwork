@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import org.wit.archaeologicalfieldwork.R
+import org.wit.archaeologicalfieldwork.views.sitelist.SiteListView
 
 class LoginActivity : AppCompatActivity(){
 
@@ -31,7 +32,7 @@ class LoginActivity : AppCompatActivity(){
                     }else {
                         Toast.makeText(this,"Successfully signed in", Toast.LENGTH_SHORT).show()
                         Log.d("Main", "Successfully signed in: ${it.result.user.uid}")
-                        val intent = Intent(this,SiteListActivity::class.java)
+                        val intent = Intent(this, SiteListView::class.java)
                         startActivity(intent)
                 }
         }.addOnFailureListener {

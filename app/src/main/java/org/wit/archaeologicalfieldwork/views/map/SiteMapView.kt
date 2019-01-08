@@ -1,55 +1,51 @@
-package org.wit.archaeologicalfieldwork.activities
+package org.wit.archaeologicalfieldwork.views.map
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import org.wit.archaeologicalfieldwork.R
 import kotlinx.android.synthetic.main.activity_site_maps.*
 import kotlinx.android.synthetic.main.content_site_maps.*
 import org.wit.archaeologicalfieldwork.helpers.readImageFromPath
-import org.wit.archaeologicalfieldwork.main.MainApp
+import org.wit.archaeologicalfieldwork.models.SiteModel
+import org.wit.archaeologicalfieldwork.views.BaseView
 
 
-class SiteMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener{
-     lateinit var map: GoogleMap
-    lateinit var app:MainApp
+class SiteMapView : BaseView(), GoogleMap.OnMarkerClickListener{
+
+    lateinit var presenter: SiteMapPresenter
+    lateinit var map : GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site_maps)
-        setSupportActionBar(toolbarMaps)
-        app = application as MainApp
+
+        super.init(toolbarMaps)
+
+        presenter = initPresenter(SiteMapPresenter(this))as SiteMapPresenter
 
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync{
-            map = it
-            configureMap()
+           map = it
+           map.setOnMarkerClickListener(this)
+           presenter.loadSites()
         }
 
     }
 
-    fun configureMap() {
-        map.uiSettings.setZoomControlsEnabled(true)
-        map.setOnMarkerClickListener(this)
-        app.sites.findAll().forEach {
-            val loc = LatLng(it.lat, it.lng)
-            val options = MarkerOptions().title(it.name).position(loc)
-            map.addMarker(options).tag = it.id
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
+    override fun showSite(site:SiteModel){
+        currentName.text = site.name
+        currentDescription.text = site.description
+        imageView.setImageBitmap(readImageFromPath(this,site.image))
+    }
 
-        }
+    override fun showSites(sites:List<SiteModel>){
+        presenter.doPopulateMap(map,sites)
     }
 
     override fun onMarkerClick(marker: Marker):Boolean{
-        val tag = marker.tag as Long
-        val site = app.sites.finById(tag)
-        currentName.text = site!!.name
-        currentDescription.text = site!!.description
-        imageView.setImageBitmap(readImageFromPath(this@SiteMapsActivity, site.image))
+        presenter.doMarkterSelected(marker)
         return true
     }
 

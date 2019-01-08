@@ -5,10 +5,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="org.wit.archaeologicalfieldwork.activities.SiteActivity">
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        tools:context="org.wit.archaeologicalfieldwork.views.site.SiteView">
+
+
 
     <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -23,7 +22,9 @@
                 android:id="@+id/activity_site_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:titleTextColor="@color/colorPrimary" android:background="@android:color/holo_green_dark"/>
+                app:titleTextColor="@color/colorPrimary"
+                android:background="@android:color/holo_green_dark"/>
+
     </android.support.design.widget.AppBarLayout>
 
         <android.support.constraint.ConstraintLayout
@@ -64,54 +65,53 @@
                     app:layout_constraintTop_toBottomOf="@+id/siteName" />
             <Button
                     android:id="@+id/addImage"
-                    android:layout_width="150dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/button_addImage"
-                    app:layout_constraintStart_toStartOf="@+id/btnAdd"
-                    app:layout_constraintTop_toBottomOf="@+id/btnAdd" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/description" />
+
             <ImageView
                     android:id="@+id/siteImage"
+                    android:layout_width="355dp"
+                    android:layout_height="139dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.333"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/addImage"
+                    app:srcCompat="@drawable/ic_launcher_background"/>
+            <Button
+                    android:id="@+id/siteLocation"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/button_location"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/siteImage" />
+
+            <com.google.android.gms.maps.MapView
+                    android:id="@+id/mapView" android:layout_width="0dp"
+                    android:layout_height="163dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.555"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/siteLocation"
-                    app:layout_constraintVertical_bias="0.173"
-                    app:srcCompat="@drawable/ic_launcher_background" />
-            <Button
-                    android:id="@+id/siteLocation"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/button_location"
-                    app:layout_constraintEnd_toEndOf="@+id/btnAdd"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/addImage"
-                    app:layout_constraintTop_toBottomOf="@+id/btnAdd" />
-            <Button
-                    android:id="@+id/btnAdd"
-                    android:layout_width="365dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:text="@string/save_Site"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/description" />
+                    app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.0"/>
+
 
         </android.support.constraint.ConstraintLayout>
-
-
-
-    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

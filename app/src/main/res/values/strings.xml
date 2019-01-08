@@ -16,4 +16,5 @@
     <string name="title_activity_maps">Map</string>
     <string name="menu_deleteSite">Delete</string>
     <string name="title_activity_site_maps">Map of all Sites</string>
+    <string name="menu_saveSite">Save</string>
 </resources>
