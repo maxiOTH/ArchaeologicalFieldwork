@@ -1,24 +1,35 @@
 package org.wit.archaeologicalfieldwork.views.site
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import org.jetbrains.anko.intentFor
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
+import org.wit.archaeologicalfieldwork.helpers.checkLocationPermissions
+import org.wit.archaeologicalfieldwork.helpers.createDefaultLocationRequest
+import org.wit.archaeologicalfieldwork.helpers.isPermissionGranted
 import org.wit.archaeologicalfieldwork.helpers.showImagePicker
-import org.wit.archaeologicalfieldwork.main.MainApp
 import org.wit.archaeologicalfieldwork.models.Location
 import org.wit.archaeologicalfieldwork.models.SiteModel
 import org.wit.archaeologicalfieldwork.views.*
-import org.wit.archaeologicalfieldwork.views.editlocation.EditLocationView
+
 
 class SitePresenter(view: BaseView):BasePresenter(view){
+
+    var map : GoogleMap? = null
+    var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
 
     var site = SiteModel()
     var defaultlocation = Location(52.245696, -7.139102, 15f)
     var edit = false
-    var map : GoogleMap? = null
+    val locationRequest = createDefaultLocationRequest()
+
+
 
 
     init {
@@ -27,10 +38,36 @@ class SitePresenter(view: BaseView):BasePresenter(view){
             site = view.intent.extras.getParcelable<SiteModel>("site_edit")
             view.showSite(site)
         }else{
-            site.lat = defaultlocation.lat
-            site.lng = defaultlocation.lng
+            if (checkLocationPermissions(view)) {
+                doSetCurrentLocation()
+            }
         }
     }
+
+    @SuppressLint("MissingPermission")
+    fun doSetCurrentLocation() {
+        locationService.lastLocation.addOnSuccessListener {
+            locationUpdate(it.latitude, it.longitude)
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    fun doResartLocationUpdates() {
+
+        var locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                if (locationResult != null && locationResult.locations != null) {
+                    val l = locationResult.locations.last()
+                    locationUpdate(l.latitude, l.longitude)
+                }
+            }
+        }
+        if (!edit) {
+            locationService.requestLocationUpdates(locationRequest, locationCallback, null)
+        }
+    }
+
+
 
     fun doConfigureMap(m:GoogleMap){
         map = m
@@ -49,6 +86,15 @@ class SitePresenter(view: BaseView):BasePresenter(view){
         view?.showSite(site)
     }
 
+    override fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        if (isPermissionGranted(requestCode, grantResults)) {
+            doSetCurrentLocation()
+        } else {
+            // permissions denied, so use the default location
+            locationUpdate(defaultlocation.lat, defaultlocation.lng)
+        }
+    }
+
     fun doAddOrSave(name:String, description:String){
         site.name = name
         site.description = description
@@ -60,7 +106,7 @@ class SitePresenter(view: BaseView):BasePresenter(view){
         view?.finish()
     }
 
-    fun doCancle(){
+    fun doCancel(){
         view?.finish()
     }
 
@@ -77,11 +123,7 @@ class SitePresenter(view: BaseView):BasePresenter(view){
     }
 
     fun doSetLocation(){
-        if(edit==false){
-            view?.navigateTo(VIEW.LOCATION,LOCATION_REQUEST,"location",defaultlocation)
-        }else{
             view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST,"location", Location(site.lat,site.lng,site.zoom))
-        }
     }
 
     override fun doActivityResult(requestCode:Int, resultCode:Int, data:Intent){

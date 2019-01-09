@@ -22,19 +22,25 @@
                 android:noHistory="true"
                 android:theme="@style/SplashTheme">
         </activity>
+
         <activity android:name=".activities.RegisterActivity">
         </activity>
+
         <activity android:name=".activities.LoginActivity">
         </activity>
-        <activity android:name=".views.sitelist.SiteListView">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
+        <activity android:name=".views.sitelist.SiteListView"
+            android:label="@string/title_activity_site_list"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
                 android:name=".views.site.SiteView"
+                android:label="@string/title_activity_site"
                 android:parentActivityName=".views.sitelist.SiteListView">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
@@ -42,27 +48,29 @@
             </meta-data>
 
         </activity>
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
-        -->
-        <meta-data
-                android:name="com.google.android.geo.API_KEY"
-                android:value="@string/google_maps_key"/>
 
-        <activity
-                android:name=".views.editlocation.EditLocationView"
-                android:label="@string/title_activity_maps">
-        </activity>
+    <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
+
+    <activity
+            android:name=".views.editlocation.EditLocationView"
+            android:label="@string/title_activity_edit_location">
+        <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.site.SiteView" />
+    </activity>
         <activity
                 android:name=".views.map.SiteMapView"
                 android:label="@string/title_activity_site_maps"
-                android:theme="@style/AppTheme">
+                android:launchMode="singleTop">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".views.sitelist.SiteListView" />
         </activity>
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="@string/google_maps_key" />
     </application>
 
 </manifest>

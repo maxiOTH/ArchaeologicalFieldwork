@@ -21,7 +21,7 @@ class SiteMapView : BaseView(), GoogleMap.OnMarkerClickListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site_maps)
 
-        super.init(toolbarMaps)
+        super.init(toolbarMaps,true)
 
         presenter = initPresenter(SiteMapPresenter(this))as SiteMapPresenter
 

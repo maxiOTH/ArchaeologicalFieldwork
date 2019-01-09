@@ -5,11 +5,13 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import org.wit.archaeologicalfieldwork.main.MainApp
 import org.wit.archaeologicalfieldwork.models.SiteModel
 import org.wit.archaeologicalfieldwork.views.BasePresenter
 import org.wit.archaeologicalfieldwork.views.BaseView
 
 class SiteMapPresenter(view: BaseView):BasePresenter(view) {
+
 
     fun doPopulateMap(map:GoogleMap,sites:List<SiteModel>){
         map.uiSettings.setZoomControlsEnabled(true)

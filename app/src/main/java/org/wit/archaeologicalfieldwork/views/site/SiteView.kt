@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_site.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
@@ -16,40 +15,42 @@ import org.wit.archaeologicalfieldwork.views.BaseView
 class SiteView :BaseView(),AnkoLogger{
 
     lateinit var presenter: SitePresenter
-    var site = SiteModel()
-    lateinit var map:GoogleMap
+    val site = SiteModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site)
-        init(activity_site_toolbar)
+
+        init(activity_site_toolbar,true)
+
         presenter = initPresenter(SitePresenter(this)) as SitePresenter
 
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync{
-            map = it
-            presenter.doConfigureMap(map)
+            presenter.doConfigureMap(it)
+            it.setOnMapClickListener { presenter.doSetLocation() }
         }
 
         addImage.setOnClickListener{
            presenter.doSelectImage()
         }
 
-        siteLocation.setOnClickListener{
-           presenter.doSetLocation()
-        }
+
+
+
     }
 
-
-    override fun showSite(site:SiteModel){
-         siteName.setText(site.name)
-         description.setText(site.description)
-         siteImage.setImageBitmap(readImageFromPath(this, site.image))
-         if(site.image != null){
-             addImage.setText(R.string.change_site_image)
-         }
-     }
+    override fun showSite(site: SiteModel) {
+       siteName.setText(site.name)
+       description.setText(site.description)
+       siteImage.setImageBitmap(readImageFromPath(this,site.image))
+        if(site.image != null){
+            addImage.setText(R.string.change_site_image)
+        }
+        lat.setText("%.6f".format(site.lat))
+        lng.setText("%.6f".format(site.lng))
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_site,menu)
@@ -63,7 +64,7 @@ class SiteView :BaseView(),AnkoLogger{
                 presenter.doDelete()
             }
             R.id.item_cancel->{
-                presenter.doCancle()
+                presenter.doCancel()
             }
             R.id.item_save->{
                 if(siteName.text.toString().isEmpty()){
@@ -101,6 +102,7 @@ class SiteView :BaseView(),AnkoLogger{
     override fun onResume() {
         super.onResume()
         mapView.onResume()
+        presenter.doResartLocationUpdates()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {

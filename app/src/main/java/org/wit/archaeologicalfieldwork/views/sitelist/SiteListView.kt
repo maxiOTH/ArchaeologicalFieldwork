@@ -22,7 +22,7 @@ class SiteListView:BaseView(), SiteListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site_list)
-        init(activity_site_list_toolbar)
+        init(activity_site_list_toolbar,true)
 
         presenter = initPresenter(SiteListPresenter(this))as SiteListPresenter
 
