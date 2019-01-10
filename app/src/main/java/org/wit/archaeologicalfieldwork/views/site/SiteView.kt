@@ -17,19 +17,20 @@ class SiteView :BaseView(),AnkoLogger{
 
     lateinit var presenter: SitePresenter
     var site = SiteModel()
-    lateinit var map:GoogleMap
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site)
+
         init(activity_site_toolbar)
+
         presenter = initPresenter(SitePresenter(this)) as SitePresenter
 
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync{
-            map = it
-            presenter.doConfigureMap(map)
+
+            presenter.doConfigureMap(it)
         }
 
         addImage.setOnClickListener{
