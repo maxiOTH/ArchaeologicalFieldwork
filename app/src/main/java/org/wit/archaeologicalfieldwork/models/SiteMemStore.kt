@@ -11,31 +11,29 @@ internal fun getId():Long{
 
 
 class SiteMemStore : SiteStore , AnkoLogger{
-    override fun delete(site: SiteModel) {
+    suspend override fun delete(site: SiteModel) {
         sites.remove(site)
     }
 
     val sites = ArrayList<SiteModel>()
 
-    override fun findAll(): List<SiteModel> {
+    suspend override fun findAll(): List<SiteModel> {
         return sites
     }
 
-    override fun create(site: SiteModel) {
+    suspend override fun create(site: SiteModel) {
         site.id = getId()
         sites.add(site)
         logAll()
     }
 
-    override fun update(site: SiteModel) {
+    suspend override fun update(site: SiteModel) {
         var foundSite:SiteModel?=sites.find { p->p.id == site.id }
         if (foundSite!=null){
             foundSite.name = site.name
             foundSite.description = site.description
-            foundSite.image = site.image
-            foundSite.lat = site.lat
-            foundSite.lng = site.lng
-            foundSite.zoom = site.zoom
+            foundSite.images = site.images
+            foundSite.location = site.location
             logAll()
         }
     }
@@ -44,7 +42,7 @@ class SiteMemStore : SiteStore , AnkoLogger{
         sites.forEach{info("${it}")}
     }
 
-    override fun finById(id: Long): SiteModel? {
+    suspend override fun findById(id: Long): SiteModel? {
         val foundSite:SiteModel?=sites.find{it.id == id}
         return foundSite
     }

@@ -1,13 +1,12 @@
 package org.wit.archaeologicalfieldwork.views.editlocation
 
-import android.support.v7.app.AppCompatActivity
+
 import android.os.Bundle
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
 import org.wit.archaeologicalfieldwork.R
 import org.wit.archaeologicalfieldwork.views.BaseView
-import org.wit.archaeologicalfieldwork.views.editlocation.EditLocationPresenter
 
 class EditLocationView : BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
 

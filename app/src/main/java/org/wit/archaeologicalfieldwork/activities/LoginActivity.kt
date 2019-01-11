@@ -3,13 +3,14 @@ package org.wit.archaeologicalfieldwork.activities
 import android.content.Intent
 import android.os.Bundle
 
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import org.wit.archaeologicalfieldwork.R
 import org.wit.archaeologicalfieldwork.views.sitelist.SiteListView
+import org.wit.archaeologicalfieldwork.views.BasePresenter
 
 class LoginActivity : AppCompatActivity(){
 

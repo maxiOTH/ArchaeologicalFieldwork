@@ -1,10 +1,11 @@
-package org.wit.archaeologicalfieldwork.activities
+package org.wit.archaeologicalfieldwork.views
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import org.wit.archaeologicalfieldwork.R
+import org.wit.archaeologicalfieldwork.views.login_register.RegisterView
 
 class SplashScreenActivity : AppCompatActivity(){
 
@@ -17,7 +18,7 @@ class SplashScreenActivity : AppCompatActivity(){
 
         Handler().postDelayed(object:Runnable{
              override fun run(){
-                val home = Intent(this@SplashScreenActivity, RegisterActivity::class.java)
+                val home = Intent(this@SplashScreenActivity, RegisterView::class.java)
                  startActivity(home)
                  finish()
             }

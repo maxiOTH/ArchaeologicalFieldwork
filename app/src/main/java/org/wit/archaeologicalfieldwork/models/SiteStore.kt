@@ -1,9 +1,9 @@
 package org.wit.archaeologicalfieldwork.models
 
 interface SiteStore {
-    fun findAll():List<SiteModel>
-    fun create(site:SiteModel)
-    fun update(site:SiteModel)
-    fun delete(site:SiteModel)
-    fun finById(id:Long):SiteModel?
+   suspend fun findAll():List<SiteModel>
+    suspend fun create(site:SiteModel)
+    suspend fun update(site:SiteModel)
+    suspend fun delete(site:SiteModel)
+    suspend fun findById(id:Long):SiteModel?
 }

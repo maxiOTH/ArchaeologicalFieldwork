@@ -1,15 +1,13 @@
 package org.wit.archaeologicalfieldwork.views.sitelist
 
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startActivityForResult
-import org.wit.archaeologicalfieldwork.views.map.SiteMapView
-import org.wit.archaeologicalfieldwork.main.MainApp
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
 import org.wit.archaeologicalfieldwork.models.SiteModel
 import org.wit.archaeologicalfieldwork.views.BasePresenter
 import org.wit.archaeologicalfieldwork.views.BaseView
 import org.wit.archaeologicalfieldwork.views.VIEW
-import org.wit.archaeologicalfieldwork.views.site.SiteView
+import java.util.*
+
 
 class SiteListPresenter(view:BaseView):BasePresenter(view) {
 
@@ -25,7 +23,27 @@ class SiteListPresenter(view:BaseView):BasePresenter(view) {
         view?.navigateTo(VIEW.MAPS)
     }
 
-    fun loadSites(){
-        view?.showSites(app.sites.findAll())
+    fun doShowSettings(){
+        view?.navigateTo(VIEW.SETTINGS)
     }
+
+
+    fun loadSites(){
+        async(UI){
+        view?.showSites(app.sites.findAll())
+        }
+    }
+
+    fun doUpdateVisited(site: SiteModel){
+
+        if(!site.visited.visited){
+
+            site.visited.date = Date()
+        }
+        site.visited.visited = !site.visited.visited
+            async(UI){
+            app.sites.update(site)
+            }
+    }
+
 }

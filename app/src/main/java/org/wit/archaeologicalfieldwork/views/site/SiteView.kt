@@ -1,10 +1,20 @@
 package org.wit.archaeologicalfieldwork.views.site
 
+import android.app.DatePickerDialog
+import android.app.Dialog
+import android.content.Context
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.gms.maps.GoogleMap
+import android.view.View
+import android.widget.DatePicker
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_site.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
@@ -12,20 +22,29 @@ import org.wit.archaeologicalfieldwork.R
 import org.wit.archaeologicalfieldwork.helpers.readImageFromPath
 import org.wit.archaeologicalfieldwork.models.SiteModel
 import org.wit.archaeologicalfieldwork.views.BaseView
+import java.text.SimpleDateFormat
+import com.bumptech.glide.Glide
+import java.util.*
 
-class SiteView :BaseView(),AnkoLogger{
+class SiteView :BaseView(),AnkoLogger,ImageListener, DatePickerDialog.OnDateSetListener {
 
     lateinit var presenter: SitePresenter
     var site = SiteModel()
-
+    private val snapHelper = PagerSnapHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site)
 
-        init(activity_site_toolbar)
+        init(toolbar_register, true)
 
         presenter = initPresenter(SitePresenter(this)) as SitePresenter
+
+        val layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false)
+        imageRecyclerView.layoutManager = layoutManager
+        snapHelper.attachToRecyclerView(imageRecyclerView)
+        imageRecyclerView.addItemDecoration(LinePagerIndicatorDecoration(ContextCompat.getColor
+          (this,R.color.pageIndecatorActive),ContextCompat.getColor(this,R.color.pageIndecatorInactive)))
 
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync{
@@ -33,12 +52,20 @@ class SiteView :BaseView(),AnkoLogger{
             presenter.doConfigureMap(it)
         }
 
-        addImage.setOnClickListener{
-           presenter.doSelectImage()
+        addImage.setOnClickListener{ it ->
+            if (site.images.size < 4) {
+                presenter.doSelectImage()
+            } else {
+                toast("you can only pick 4 images")
+            }
         }
 
         siteLocation.setOnClickListener{
            presenter.doSetLocation()
+        }
+
+        checkBox_siteVisited.setOnClickListener{
+            it -> presenter.doUpdateVisited()
         }
     }
 
@@ -46,10 +73,20 @@ class SiteView :BaseView(),AnkoLogger{
     override fun showSite(site:SiteModel){
          siteName.setText(site.name)
          description.setText(site.description)
-         siteImage.setImageBitmap(readImageFromPath(this, site.image))
-         if(site.image != null){
-             addImage.setText(R.string.change_site_image)
+         checkBox_siteVisited.isChecked = site.visited.visited
+         if(site.visited.visited){
+             visitedDate.setText(DateUtils.toSimpleString(site.visited.date))
+         }else{
+             visitedDate.setText("")
          }
+         additionalNotes.setText(site.additionalNotes)
+
+         imageRecyclerView.adapter = ImageAdapter(site.images,this)
+         imageRecyclerView.adapter?.notifyDataSetChanged()
+         this.site = site
+
+        lat.setText("%.6f".format(site.location.lat))
+        lng.setText("%.6f".format(site.location.lng))
      }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -70,7 +107,7 @@ class SiteView :BaseView(),AnkoLogger{
                 if(siteName.text.toString().isEmpty()){
                     toast(R.string.enter_site_name)
                 }else{
-                    presenter.doAddOrSave(siteName.text.toString(),description.text.toString())
+                    presenter.doAddOrSave(siteName.text.toString(),description.text.toString(), additionalNotes.text.toString())
                 }
             }
         }
@@ -83,6 +120,11 @@ class SiteView :BaseView(),AnkoLogger{
             presenter.doActivityResult(requestCode,resultCode,data)
         }
     }
+    override fun onImageRemove(image: org.wit.archaeologicalfieldwork.models.Image) {
+        presenter.doRemoveImage(image)
+        imageRecyclerView.adapter?.notifyDataSetChanged()
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -109,6 +151,43 @@ class SiteView :BaseView(),AnkoLogger{
         mapView.onSaveInstanceState(outState)
     }
 
+    fun showDatePickerDialog(view:View){
+        val newFragment = DatePickerFragment()
+        newFragment.show(supportFragmentManager,"datePicker")
+    }
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayofMonth: Int) {
+        presenter.doUpdateVisitedDate(year, month, dayofMonth)
+    }
+
+}
+class DatePickerFragment : DialogFragment(){
+
+    private lateinit var replaceFragmentListener: DatePickerDialog.OnDateSetListener
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        super.onCreateDialog(savedInstanceState)
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        // Create a new instance of DatePickerDialog and return it
+        return DatePickerDialog(activity, replaceFragmentListener, year, month, day)
+
+    }
 
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        replaceFragmentListener = activity as SiteView
+    }
+}
+
+object DateUtils{
+    @JvmStatic
+    fun toSimpleString(date:Date):String{
+        val format = SimpleDateFormat("dd/MM/yyy")
+        return format.format(date)
+    }
 }

@@ -11,16 +11,16 @@ import org.wit.archaeologicalfieldwork.helpers.write
 import java.util.*
 import kotlin.collections.ArrayList
 
-val JSON_FILE = "sites.json"
-val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
-val listType = object : TypeToken<java.util.ArrayList<SiteModel>>(){}.type
+private val JSON_FILE = "sites.json"
+private val  gsonBuilder = GsonBuilder().setPrettyPrinting().create()
+private val listType = object : TypeToken<java.util.ArrayList<SiteModel>>(){}.type
 
-fun generateRandomId():Long{
+private fun generateRandomId():Long{
     return Random().nextLong()
 }
 
 class SiteJSONStore:SiteStore,AnkoLogger{
-    override fun finById(id: Long): SiteModel? {
+    suspend override fun findById(id: Long): SiteModel? {
         val foundSite: SiteModel? = sites.find { it.id == id }
         return foundSite    }
 
@@ -34,26 +34,26 @@ class SiteJSONStore:SiteStore,AnkoLogger{
             deserialize()
         }
     }
-    override fun findAll(): List<SiteModel> {
+    suspend override fun findAll(): List<SiteModel> {
         return sites
     }
 
-    override fun create(site: SiteModel) {
+    suspend override fun create(site: SiteModel) {
         site.id = generateRandomId()
         sites.add(site)
         serialize()
     }
 
-    override fun update(site: SiteModel) {
+    suspend override fun update(site: SiteModel) {
        val sitesList = findAll() as ArrayList<SiteModel>
        var foundSite:SiteModel?=sitesList.find { p->p.id == site.id }
        if (foundSite != null){
            foundSite.name = site.name
            foundSite.description = site.description
-           foundSite.image = site.image
-           foundSite.lat = site.lat
-           foundSite.lng = site.lng
-           foundSite.zoom = site.zoom
+           foundSite.images = site.images
+           foundSite.location = site.location
+           foundSite.visited = site.visited
+           foundSite.additionalNotes = site.additionalNotes
        }
         serialize()
     }
@@ -68,7 +68,7 @@ class SiteJSONStore:SiteStore,AnkoLogger{
         sites = Gson().fromJson(jsonString, listType)
     }
 
-    override fun delete(site: SiteModel) {
+    suspend override fun delete(site: SiteModel) {
         sites.remove(site)
         serialize()
     }

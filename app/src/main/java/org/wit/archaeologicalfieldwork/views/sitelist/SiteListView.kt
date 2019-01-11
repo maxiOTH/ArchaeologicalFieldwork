@@ -2,17 +2,22 @@ package org.wit.archaeologicalfieldwork.views.sitelist
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import android.view.*
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_site_list.*
+import kotlinx.android.synthetic.main.card_site.*
+import org.jetbrains.anko.startActivity
 
 import org.jetbrains.anko.startActivityForResult
 import org.wit.archaeologicalfieldwork.R
 import org.wit.archaeologicalfieldwork.activities.LoginActivity
+import org.wit.archaeologicalfieldwork.activities.RegisterActivity
 import org.wit.archaeologicalfieldwork.models.SiteModel
 import org.wit.archaeologicalfieldwork.views.BaseView
+import org.wit.archaeologicalfieldwork.views.login_register.LoginView
+import org.wit.archaeologicalfieldwork.views.settings.SettingsView
 
 
 class SiteListView:BaseView(), SiteListener {
@@ -22,7 +27,7 @@ class SiteListView:BaseView(), SiteListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site_list)
-        init(activity_site_list_toolbar)
+        init(activity_site_list_toolbar, false)
 
         presenter = initPresenter(SiteListPresenter(this))as SiteListPresenter
 
@@ -53,12 +58,12 @@ class SiteListView:BaseView(), SiteListener {
 
             R.id.action_logout -> {
                 Toast.makeText(this, "Successfull log out", Toast.LENGTH_SHORT).show()
-                startActivityForResult<LoginActivity>(0)
+                startActivityForResult<LoginView>(0)
                 true
             }
 
             R.id.action_settings -> {
-                true
+               presenter.doShowSettings()
             }
 
             else -> {
@@ -68,7 +73,6 @@ class SiteListView:BaseView(), SiteListener {
         return super.onOptionsItemSelected(item)
     }
 
-
         override fun onSiteClick(site: SiteModel) {
             presenter.doEditSite(site)
         }
@@ -76,6 +80,10 @@ class SiteListView:BaseView(), SiteListener {
         override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
            presenter.loadSites()
             super.onActivityResult(requestCode, resultCode, data)
+        }
+
+        override fun onCheckVisited(site:SiteModel){
+            presenter.doUpdateVisited(site)
         }
     }
 
