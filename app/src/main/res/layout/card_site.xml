@@ -7,15 +7,16 @@
         android:elevation="24dp">
 
     <RelativeLayout
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:padding="16dp" android:layout_width="match_parent">
         <ImageView
                 android:id="@+id/imageIcon"
-                android:layout_width="65dp"
+                android:layout_width="104dp"
                 android:layout_height="67dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp" android:layout_marginLeft="193dp" android:layout_marginTop="1dp"/>
+                android:layout_marginRight="16dp" android:layout_marginLeft="244dp" android:layout_marginTop="7dp"
+                android:layout_marginStart="244dp" android:layout_alignStart="@+id/description"/>
         <TextView
                 android:id="@+id/siteName"
                 android:layout_width="wrap_content"
@@ -31,22 +32,22 @@
                 android:text="Visited"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:layout_alignParentStart="true"
-                android:layout_marginStart="100dp" android:layout_alignParentTop="true"
+                android:layout_marginStart="130dp" android:layout_alignParentTop="true"
                 android:id="@+id/checkBox_card_site"
-                android:layout_marginTop="30dp"/>
+                android:layout_marginTop="9dp"/>
         <TextView
                 android:text="Lat: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView5"
-                android:layout_alignParentStart="true" android:layout_marginStart="138dp"
-                android:layout_below="@+id/imageIcon" android:layout_marginTop="1dp"/>
+                android:layout_alignParentStart="true" android:layout_marginStart="111dp"
+                android:layout_below="@+id/imageIcon" android:layout_marginTop="-3dp"/>
         <TextView
                 android:text="Lng:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:layout_alignEnd="@+id/textView5"
-                android:layout_alignParentBottom="true" android:id="@+id/textView6" android:layout_marginBottom="6dp"
-                android:layout_marginEnd="2dp" android:layout_marginTop="7dp" android:layout_below="@+id/textView5"/>
+                android:layout_width="47dp"
+                android:layout_height="34dp" android:layout_alignEnd="@+id/textView5"
+                android:layout_alignParentBottom="true" android:id="@+id/textView6" android:layout_marginBottom="49dp"
+                android:layout_marginEnd="-17dp" android:layout_marginTop="8dp" android:layout_below="@+id/textView5"/>
         <TextView
                 android:text="0.000"
                 android:layout_width="wrap_content"
@@ -56,9 +57,29 @@
         <TextView
                 android:text="0.000"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:layout_alignBottom="@+id/textView6"
-                android:id="@+id/lng_textview_card_site" android:layout_toEndOf="@+id/textView6"
-                android:layout_marginStart="30dp"/>
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textView6"
+                android:id="@+id/lng_textview_card_site"
+                android:layout_toEndOf="@+id/textView6"
+                android:layout_marginStart="28dp"
+                android:layout_marginBottom="0dp"/>
+        <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="45dp"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/ratingBarView"
+                android:layout_marginBottom="0dp"/>
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/favourite"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="0dp"
+                android:button="@drawable/btn_favourte_style"/>
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -12,19 +12,16 @@ import org.wit.archaeologicalfieldwork.views.VIEW
 
 class RegisterPresenter(view: BaseView): BasePresenter(view) {
 
-val user = UserModel()
+
 
 
     fun doRegister(email:String, password:String){
-
+        val user = UserModel()
 
         if(email.isEmpty()|| password.isEmpty()){
             view?.toast("Please enter an E-Mail and Password to register")
             return
         }
-
-
-
 
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
@@ -41,7 +38,7 @@ val user = UserModel()
                     view?.navigateTo(VIEW.LIST)
                 }
             }.addOnCompleteListener {
-                view?.toast("Please enter a correct E-Mail")
+
             }
     }
 }

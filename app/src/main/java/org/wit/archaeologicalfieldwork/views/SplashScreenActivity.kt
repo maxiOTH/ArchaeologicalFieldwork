@@ -12,7 +12,7 @@ class SplashScreenActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        val SPLASH_TIME_OUT = 4000
+        val SPLASH_TIME_OUT = 5000
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splashscreen)
 

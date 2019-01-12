@@ -20,6 +20,8 @@ private fun generateRandomId():Long{
 }
 
 class SiteJSONStore:SiteStore,AnkoLogger{
+
+
     suspend override fun findById(id: Long): SiteModel? {
         val foundSite: SiteModel? = sites.find { it.id == id }
         return foundSite    }
@@ -71,6 +73,10 @@ class SiteJSONStore:SiteStore,AnkoLogger{
     suspend override fun delete(site: SiteModel) {
         sites.remove(site)
         serialize()
+    }
+
+    override suspend fun findAllFavourites(): List<SiteModel> {
+        return sites.filter{siteModel-> siteModel.favourite}
     }
 
 }

@@ -28,6 +28,12 @@ class LoginView : BaseView() {
             }
         }
 
+
+            back_to_register_text_view_login.setOnClickListener{
+                finish()
+
+            }
+
     }
 
     override fun showProgress() {

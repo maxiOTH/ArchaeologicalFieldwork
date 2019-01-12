@@ -19,6 +19,8 @@ data class SiteModel (@PrimaryKey(autoGenerate = true) var id: Long = 0,
                       var lat: Double = 0.0,
                       var lng: Double = 0.0,
                       var zoom:Float = 0f,
+                      var rating:Int = 0,
+                      var favourite : Boolean = false,
                       var additionalNotes:String = "",
                       @Embedded var visited:Visited = Visited(),
                       @Embedded var location: Location = Location()):Parcelable

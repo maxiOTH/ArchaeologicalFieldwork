@@ -15,13 +15,12 @@ class LoginPresenter(view:BaseView):BasePresenter(view){
                     if(!it.isSuccessful){
                         view?.toast("E-Mail or Password incorrect")
                         return@addOnCompleteListener
-                    }else{
-                        view?.toast("Successfully signed in")
-                        view?.navigateTo(VIEW.LIST)
-                    }
-                }.addOnFailureListener{
+                        }else{
+                            view?.navigateTo(VIEW.LIST)
+                        }
+                    }.addOnFailureListener{
                     view?.toast("Faild to sign in")
                 }
+                }
         }
-    }
 

@@ -46,4 +46,11 @@ class SiteListPresenter(view:BaseView):BasePresenter(view) {
             }
     }
 
+    fun doUpdateFavourite(site:SiteModel){
+        site.favourite = !site.favourite
+        async(UI){
+            app.sites.update(site)
+        }
+    }
+
 }

@@ -8,6 +8,7 @@ import android.view.*
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_site_list.*
 import kotlinx.android.synthetic.main.card_site.*
+import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
 
 import org.jetbrains.anko.startActivityForResult
@@ -28,8 +29,9 @@ class SiteListView:BaseView(), SiteListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site_list)
         init(activity_site_list_toolbar, false)
-
+        initDrawerNavigation(activity_site_list_toolbar, drawer_layout, navigation_view)
         presenter = initPresenter(SiteListPresenter(this))as SiteListPresenter
+        recyclerView.adapter = SiteAdapter(emptyList(), this)
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
@@ -37,6 +39,7 @@ class SiteListView:BaseView(), SiteListener {
     }
 
     override fun showSites(sites:List<SiteModel>){
+        info(sites)
         recyclerView.adapter = SiteAdapter(sites,this)
         recyclerView.adapter?.notifyDataSetChanged()
     }
@@ -51,7 +54,7 @@ class SiteListView:BaseView(), SiteListener {
             R.id.item_add -> {
                 presenter.doAddSite()
             }
-
+            /*
             R.id.item_map -> {
                 presenter.doShowSitesMap()
             }
@@ -68,13 +71,17 @@ class SiteListView:BaseView(), SiteListener {
 
             else -> {
                 super.onOptionsItemSelected(item)
-            }
+            }*/
         }
         return super.onOptionsItemSelected(item)
     }
 
         override fun onSiteClick(site: SiteModel) {
             presenter.doEditSite(site)
+        }
+
+        override fun onFavouriteClick(site:SiteModel){
+            presenter.doUpdateFavourite(site)
         }
 
         override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

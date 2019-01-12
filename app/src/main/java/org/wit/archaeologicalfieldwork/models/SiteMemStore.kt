@@ -46,4 +46,8 @@ class SiteMemStore : SiteStore , AnkoLogger{
         val foundSite:SiteModel?=sites.find{it.id == id}
         return foundSite
     }
+
+    override suspend fun findAllFavourites(): List<SiteModel> {
+        return sites.filter { siteModel -> siteModel.favourite  }
+    }
 }

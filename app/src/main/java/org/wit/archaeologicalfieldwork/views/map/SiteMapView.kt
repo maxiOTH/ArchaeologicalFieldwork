@@ -23,9 +23,8 @@ class SiteMapView : BaseView(), GoogleMap.OnMarkerClickListener, ImageListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_site_maps)
-
-        super.init(toolbarMaps, true)
-
+        init(toolbarMaps, true)
+        initDrawerNavigation(toolbarMaps, drawer_layout, navigation_view)
         presenter = initPresenter(SiteMapPresenter(this))as SiteMapPresenter
 
         mapView.onCreate(savedInstanceState)
@@ -43,13 +42,12 @@ class SiteMapView : BaseView(), GoogleMap.OnMarkerClickListener, ImageListener {
         Glide.with(this).load(site.images.find{image->image.preview}?.image).into(imageView)
     }
 
-    override fun onImageRemove(image: Image) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-
     override fun showSites(sites:List<SiteModel>){
         presenter.doPopulateMap(map,sites)
+    }
+
+    override fun onImageRemove(image: Image) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onMarkerClick(marker: Marker):Boolean{

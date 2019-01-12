@@ -16,6 +16,7 @@ import org.wit.archaeologicalfieldwork.models.UserModel
 interface SiteListener{
     fun onSiteClick(site:SiteModel)
     fun onCheckVisited(site:SiteModel)
+    fun onFavouriteClick(site:SiteModel)
 }
 
 class SiteAdapter constructor(private var sites:List<SiteModel>,
@@ -38,8 +39,6 @@ class SiteAdapter constructor(private var sites:List<SiteModel>,
 
     override fun getItemCount(): Int = sites.size
 
-
-
     class MainHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView){
 
         fun bind(site: SiteModel, listener: SiteListener){
@@ -49,9 +48,12 @@ class SiteAdapter constructor(private var sites:List<SiteModel>,
             itemView.lat_textview_card_site.text = site.location.lat.toString().format("%.4f")
             itemView.lng_textview_card_site.text = site.location.lng.toString().format("%.4f")
             Glide.with(itemView.context).load(site.images.find{image -> image.preview}?.image).into(itemView.imageIcon)
-            itemView.setOnClickListener{listener.onSiteClick(site)
+            itemView.setOnClickListener{listener.onSiteClick(site)}
+            itemView.ratingBarView.rating = site.rating.toFloat()
             itemView.checkBox_card_site.setOnCheckedChangeListener{compoundButton, b-> listener.onCheckVisited(site)}
-            }
+            itemView.favourite.isChecked = site.favourite
+            itemView.favourite.setOnCheckedChangeListener{compoundButton, b-> listener.onFavouriteClick(site)}
+
         }
     }
 

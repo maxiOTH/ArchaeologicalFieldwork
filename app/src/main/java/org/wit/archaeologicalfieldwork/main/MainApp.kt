@@ -8,6 +8,7 @@ import org.wit.archaeologicalfieldwork.models.SiteStore
 import org.wit.archaeologicalfieldwork.models.UserStore
 
 
+
 class MainApp: Application(),AnkoLogger{
 
    lateinit var sites : SiteStore

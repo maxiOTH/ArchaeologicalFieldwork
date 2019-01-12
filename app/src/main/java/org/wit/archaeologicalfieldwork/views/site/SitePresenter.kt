@@ -98,6 +98,9 @@ class SitePresenter(view: BaseView):BasePresenter(view){
         }
     }
 
+    fun doSetRating(rating: Int){
+        site.rating = rating
+    }
 
     fun doCancle(){
         view?.finish()

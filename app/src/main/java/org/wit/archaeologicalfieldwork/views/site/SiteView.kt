@@ -67,6 +67,10 @@ class SiteView :BaseView(),AnkoLogger,ImageListener, DatePickerDialog.OnDateSetL
         checkBox_siteVisited.setOnClickListener{
             it -> presenter.doUpdateVisited()
         }
+
+        ratingBar.setOnRatingBarChangeListener{
+            ratingBar, rating, b -> presenter.doSetRating(rating.toInt())
+        }
     }
 
 
@@ -80,7 +84,7 @@ class SiteView :BaseView(),AnkoLogger,ImageListener, DatePickerDialog.OnDateSetL
              visitedDate.setText("")
          }
          additionalNotes.setText(site.additionalNotes)
-
+         ratingBar.rating = site.rating.toFloat()
          imageRecyclerView.adapter = ImageAdapter(site.images,this)
          imageRecyclerView.adapter?.notifyDataSetChanged()
          this.site = site

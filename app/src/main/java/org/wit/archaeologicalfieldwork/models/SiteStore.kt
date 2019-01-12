@@ -6,4 +6,5 @@ interface SiteStore {
     suspend fun update(site:SiteModel)
     suspend fun delete(site:SiteModel)
     suspend fun findById(id:Long):SiteModel?
+    suspend fun findAllFavourites(): List<SiteModel>
 }
